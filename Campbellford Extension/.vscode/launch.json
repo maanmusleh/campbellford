@@ -1,5 +1,35 @@
 {
     "version": "0.2.0",
     "configurations": [
+        {
+            "name": "AL: Generated Snapshot request",
+            "request": "snapshotInitialize",
+            "type": "al",
+            "environmentType": "Sandbox",
+            "environmentName": "NEW_SANDBOX",
+            "sessionId": 15481,
+            "breakOnNext": "WebClient",
+            "executionContext": "DebugAndProfile",
+            "tenant": "0d86453f-1be0-4b82-b507-ae04f4ebf40f"
+        },
+        {
+            "name": "AL: Generated Attach request",
+            "request": "attach",
+            "type": "al",
+            "environmentType": "Sandbox",
+            "environmentName": "NEW_SANDBOX",
+            "sessionId": 15481,
+            "breakOnNext": "WebClient",
+            "breakOnError": "ExcludeTry",
+            "tenant": "0d86453f-1be0-4b82-b507-ae04f4ebf40f"
+        },
+        {
+            "name": "AL: Generated Download Symbols request",
+            "request": "launch",
+            "type": "al",
+            "environmentType": "Sandbox",
+            "environmentName": "NEW_SANDBOX",
+            "tenant": "0d86453f-1be0-4b82-b507-ae04f4ebf40f"
+        }
     ]
 }

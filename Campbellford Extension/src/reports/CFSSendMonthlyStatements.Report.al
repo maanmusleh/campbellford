@@ -124,15 +124,13 @@ report 54000 "CFS Send Monthly Statements"
         CustStatementReport.InitializeRequest(true, true, true, true, true, true, '30D', 0, true, StartDate, EndDate);
 
 
-
-        CustStatementReport.SaveAs('', ReportFormat::Pdf, outStreamFile);
-
-        if TempBlob.Length() > 0 then begin
-            TempBlob.CreateInStream(InStr);
-            StatementFile := StrSubstNo('Statement-%1-%2.pdf', Customer."No.", Format(EndDate, 0, '<Month Text>-<Year4>'));
-            DataCompression.AddEntry(InStr, StatementFile);
-            // DownloadFromStream(InStr, 'Download Customer Statement', '', '*.pdf', StatementFile);
-        end;
+        if CustStatementReport.SaveAs('', ReportFormat::Pdf, outStreamFile) then
+            if TempBlob.Length() > 0 then begin
+                TempBlob.CreateInStream(InStr);
+                StatementFile := StrSubstNo('Statement-%1-%2.pdf', Customer."No.", Format(EndDate, 0, '<Month Text>-<Year4>'));
+                DataCompression.AddEntry(InStr, StatementFile);
+                // DownloadFromStream(InStr, 'Download Customer Statement', '', '*.pdf', StatementFile);
+            end;
 
         // print Sales Invoices within date range
         clear(invoiceBlob);

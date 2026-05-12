@@ -8,6 +8,7 @@ report 54000 "CFS Send Monthly Statements"
     {
         dataitem(Customer; Customer)
         {
+            DataItemTableView = sorting("Search Name");
             RequestFilterFields = "No.", "CFS Statement Delivery";
             trigger OnAfterGetRecord()
 

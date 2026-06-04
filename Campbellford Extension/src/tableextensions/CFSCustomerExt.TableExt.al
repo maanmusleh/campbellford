@@ -141,7 +141,7 @@ tableextension 54000 "CFS Customer Ext." extends Customer
         Customer.SetRange("Date Filter", FromDate, ToDate);
         CustStatementReport.SetTableView(Customer);
         CustStatementReport.UseRequestPage(false);
-        CustStatementReport.InitializeRequest(false, true, true, false, false, false, '30D', 0, true, FromDate, Todate);
+        CustStatementReport.InitializeRequest(false, true, true, false, false, false, '30D', 0, true, FromDate, ToDate);
 
 
         if (CustStatementReport.SaveAs('', ReportFormat::Pdf, outStreamFile)) then

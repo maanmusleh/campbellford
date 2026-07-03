@@ -63,12 +63,12 @@ tableextension 54000 "CFS Customer Ext." extends Customer
         CustStatementReport.SetTableView(Customer);
         CustStatementReport.UseRequestPage(false);
         CustStatementReport.InitializeRequest(false, true, true, false, false, false, '30D', 0, false, FromDate, ToDate);
-        CustStatementReport.SaveAs('', ReportFormat::Pdf, outStreamFile);
-        if TempBlob.Length() > 0 then begin
-            TempBlob.CreateInStream(InStr);
-            StatementFile := StrSubstNo('Statement-%1-%2.pdf', Rec."No.", Format(ToDate, 0, '<Month Text>-<Year4>'));
-            cduEmailMessage.AddAttachment(StatementFile, 'PDF', InStr);
-        end;
+        if CustStatementReport.SaveAs('', ReportFormat::Pdf, outStreamFile) then
+            if TempBlob.Length() > 0 then begin
+                TempBlob.CreateInStream(InStr);
+                StatementFile := StrSubstNo('Statement-%1-%2.pdf', Rec."No.", Format(ToDate, 0, '<Month Text>-<Year4>'));
+                cduEmailMessage.AddAttachment(StatementFile, 'PDF', InStr);
+            end;
 
         // print Sales Invoices within date range
         clear(invoiceBlob);

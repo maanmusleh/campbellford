@@ -2,7 +2,7 @@
   "id": "ea7427b5-411e-4d78-a17a-74bac9357345",
   "name": "Campbellford Extension",
   "publisher": "Miracle Enterprise Solutions",
-  "version": "27.5.12.0",
+  "version": "27.5.21.0",
   "brief": "",
   "description": "",
   "privacyStatement": "",
@@ -10,7 +10,14 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "id": "8eabc5b4-af11-4384-884e-c3a72a1fbb70",
+      "name": "Counter Sales",
+      "publisher": "Insight Works",
+      "version": "3.0.0.0"
+    }
+  ],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "27.0.0.0",

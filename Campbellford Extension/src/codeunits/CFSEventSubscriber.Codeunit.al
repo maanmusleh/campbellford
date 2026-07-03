@@ -14,4 +14,5 @@ codeunit 54000 "CFS Event Subscriber"
             CustomReportSelection.Validate("Send To Email", Customer."E-Mail");
         end;
     end;
+
 }

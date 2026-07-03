@@ -13,18 +13,24 @@ reportextension 54000 "CFS Standard Statement" extends "Standard Statement"
             column(CFSCustAddress7; CustAddress[7]) { }
             column(CFSCustAddress8; CustAddress[8]) { }
         }
+
         modify(Customer)
         {
             trigger OnBeforePreDataItem()
             begin
                 Customer.SetCurrentKey("Search Name");
                 Customer.SetAscending("Search Name", true);
+
+
             end;
+
+
 
             trigger OnAfterAfterGetRecord()
             var
                 i: integer;
                 PrevText, CurrText : Text[100];
+                VATEntry: Record "VAT Entry";
             begin
                 FormatAdddress.Customer(CustAddress, Customer);
                 PrevText := CustAddress[1];
@@ -34,6 +40,30 @@ reportextension 54000 "CFS Standard Statement" extends "Standard Statement"
                     CustAddress[i] := PrevText;
                     PrevText := CurrText;
                 end;
+                TotalTax := 0;
+
+                VATEntry.SetRange("Posting Date", StartDate, EndDate);
+                VATEntry.SetRange("Bill-to/Pay-to No.", Customer."No.");
+                if VATEntry.FindSet() then
+                    repeat
+                        TotalTax += VATEntry.Amount;
+                    until VATEntry.Next() = 0;
+
+
+            end;
+        }
+
+
+        add(CustLedgEntryFooter)
+        {
+            column(CFSTotalTax; Format(-TotalTax)) { }
+        }
+
+        modify("Integer")
+        {
+            trigger OnAfterAfterGetRecord()
+            begin
+                //        TotalTax := 0;
             end;
         }
     }
@@ -50,4 +80,6 @@ reportextension 54000 "CFS Standard Statement" extends "Standard Statement"
     var
         FormatAdddress: Codeunit "Format Address";
         CustAddress: array[8] of Text[100];
+        TotalTax: Decimal;
+        DocumentTax: Decimal;
 }

@@ -44,6 +44,7 @@ tableextension 54000 "CFS Customer Ext." extends Customer
         Body: Text;
         SubjectTxt: Label '%1 CFS Statement: %2 - %3';
         StatementFile, InvoiceFile, CreditMemoFile : Text;
+        SendEmail: Boolean;
     begin
         Subject := StrSubstNo(SubjectTxt, Format(ToDate, 0, '<Month Text>-<Year4>'), Rec."No.", Rec."Name");
         Body := 'Please find attached your monthly statement.<br>' +
@@ -51,6 +52,8 @@ tableextension 54000 "CFS Customer Ext." extends Customer
                 'Thank you for your business!';
         cduEmailMessage.Create(Rec."E-Mail", Subject, Body);
         cduEmailMessage.SetBodyHTMLFormatted(true);
+
+        SendEmail := false;
 
         //print Customer Statement
         clear(TempBlob);
@@ -68,6 +71,7 @@ tableextension 54000 "CFS Customer Ext." extends Customer
                 TempBlob.CreateInStream(InStr);
                 StatementFile := StrSubstNo('Statement-%1-%2.pdf', Rec."No.", Format(ToDate, 0, '<Month Text>-<Year4>'));
                 cduEmailMessage.AddAttachment(StatementFile, 'PDF', InStr);
+                SendEmail := true;
             end;
 
         // print Sales Invoices within date range
@@ -85,6 +89,7 @@ tableextension 54000 "CFS Customer Ext." extends Customer
                 invoiceBlob.CreateInStream(inInvoiceStr);
                 InvoiceFile := StrSubstNo('Invoices-%1-%2.pdf', Rec."No.", Format(ToDate, 0, '<Month Text>-<Year4>'));
                 cduEmailMessage.AddAttachment(InvoiceFile, 'PDF', inInvoiceStr);
+                SendEmail := true;
             end;
         // print Sales Credit Memos within date range
         clear(CrMemoBlob);
@@ -101,7 +106,9 @@ tableextension 54000 "CFS Customer Ext." extends Customer
                 CrMemoBlob.CreateInStream(inCreditMemoStr);
                 CreditMemoFile := StrSubstNo('CreditMemos-%1-%2.pdf', Rec."No.", Format(ToDate, 0, '<Month Text>-<Year4>'));
                 cduEmailMessage.AddAttachment(CreditMemoFile, 'PDF', inCreditMemoStr);
+                SendEmail := true;
             end;
+        if not SendEmail then exit(false);
         exit(cduEmail.Send(cduEmailMessage, EmailScenario::"Monthly Statement"));
     end;
 

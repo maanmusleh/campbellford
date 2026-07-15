@@ -1,4 +1,4 @@
-pageextension 54003 "CFS IWX POS Posted Sales Lines" extends "IWX POS Posted Sales Lines"
+pageextension 54004 "CFS IWX POS Posted Sales Lines" extends "IWX POS Posted Sales Lines"
 {
     layout
     {

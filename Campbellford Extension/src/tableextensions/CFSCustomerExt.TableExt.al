@@ -65,7 +65,7 @@ tableextension 54000 "CFS Customer Ext." extends Customer
         Customer.SetRange("Date Filter", FromDate, ToDate);
         CustStatementReport.SetTableView(Customer);
         CustStatementReport.UseRequestPage(false);
-        CustStatementReport.InitializeRequest(false, false, true, false, false, true, '1M+CM', 1, false, FromDate, ToDate);
+        CustStatementReport.InitializeRequest(false, true, true, false, false, true, '1M+CM', 1, false, FromDate, ToDate);
         if CustStatementReport.SaveAs('', ReportFormat::Pdf, outStreamFile) then
             if TempBlob.Length() > 0 then begin
                 TempBlob.CreateInStream(InStr);
@@ -148,7 +148,7 @@ tableextension 54000 "CFS Customer Ext." extends Customer
         Customer.SetRange("Date Filter", FromDate, ToDate);
         CustStatementReport.SetTableView(Customer);
         CustStatementReport.UseRequestPage(false);
-        CustStatementReport.InitializeRequest(false, false, true, false, false, true, '1M+CM', 1, true, FromDate, ToDate);
+        CustStatementReport.InitializeRequest(false, true, true, false, false, true, '1M+CM', 1, true, FromDate, ToDate);
 
 
         if (CustStatementReport.SaveAs('', ReportFormat::Pdf, outStreamFile)) then

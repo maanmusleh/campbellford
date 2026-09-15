@@ -28,7 +28,7 @@
             "request": "launch",
             "type": "al",
             "environmentType": "Sandbox",
-            "environmentName": "BACKUP_2026_03_31_11h10PM",
+            "environmentName": "CFS_DB_Copy_2026-08-31",
             "tenant": "0d86453f-1be0-4b82-b507-ae04f4ebf40f"
         }
     ]
